@@ -4,18 +4,47 @@
   <meta charset="UTF-8">
   <title>モンティ・ホール シミュレーター</title>
   <style>
-    body { font-family: sans-serif; text-align: center; background-color: #f4f4f4; }
-    .door-container { display: flex; justify-content: center; margin-top: 20px; }
-    .door {
-      width: 100px; height: 150px; background-color: brown;
-      color: white; font-size: 20px; margin: 10px;
-      display: flex; align-items: center; justify-content: center;
-      border-radius: 8px; cursor: pointer; position: relative;
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      background-color: #f4f4f4;
+      font-size: 20px; /* 追加: 全体の文字を大きく */
     }
-    .door.open { background-color: lightgray; cursor: default; }
-    .result { margin-top: 20px; font-size: 18px; }
-    .buttons { margin-top: 20px; }
-    button { margin: 5px; font-size: 16px; padding: 5px 10px; }
+    .door-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .door {
+      width: 100px;
+      height: 150px;
+      background-color: brown;
+      color: white;
+      font-size: 24px; /* ドアの文字も少し大きく */
+      margin: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      cursor: pointer;
+      position: relative;
+    }
+    .door.open {
+      background-color: lightgray;
+      cursor: default;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 22px; /* 結果表示も拡大 */
+    }
+    .buttons {
+      margin-top: 20px;
+    }
+    button {
+      margin: 5px;
+      font-size: 18px; /* ボタンの文字も拡大 */
+      padding: 5px 10px;
+    }
   </style>
 </head>
 <body>
