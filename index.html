@@ -8,20 +8,21 @@
       font-family: sans-serif;
       text-align: center;
       background-color: #f4f4f4;
-      font-size: 20px; /* 追加: 全体の文字を大きく */
+      font-size: 20px;
     }
     .door-container {
       display: flex;
       justify-content: center;
-      margin-top: 20px;
+      margin-top: 30px; /* 縦の隙間を拡大 */
+      margin-bottom: 30px;
     }
     .door {
-      width: 100px;
-      height: 150px;
+      width: 200px; /* 横2倍 */
+      height: 300px; /* 縦2倍 */
       background-color: brown;
       color: white;
-      font-size: 24px; /* ドアの文字も少し大きく */
-      margin: 10px;
+      font-size: 36px; /* ドアの文字も大きく */
+      margin: 15px; /* 隙間を1.5倍に */
       display: flex;
       align-items: center;
       justify-content: center;
@@ -34,16 +35,19 @@
       cursor: default;
     }
     .result {
-      margin-top: 20px;
-      font-size: 22px; /* 結果表示も拡大 */
+      margin-top: 30px;
+      font-size: 22px;
     }
     .buttons {
-      margin-top: 20px;
+      margin-top: 30px; /* 隙間を1.5倍に */
+    }
+    #switchButtons p {
+      font-size: 40px; /* 「ドアを変更しますか？」の文字を2倍に */
     }
     button {
-      margin: 5px;
-      font-size: 18px; /* ボタンの文字も拡大 */
-      padding: 5px 10px;
+      margin: 10px;
+      font-size: 36px; /* ボタンの文字サイズを2倍に */
+      padding: 10px 20px; /* ボタン自体のサイズも大きく */
     }
   </style>
 </head>
