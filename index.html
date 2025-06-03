@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>モンティ・ホール シミュレーター</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; background-color: #f4f4f4; }
+    .door-container { display: flex; justify-content: center; margin-top: 20px; }
+    .door {
+      width: 100px; height: 150px; background-color: brown;
+      color: white; font-size: 20px; margin: 10px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 8px; cursor: pointer; position: relative;
+    }
+    .door.open { background-color: lightgray; cursor: default; }
+    .result { margin-top: 20px; font-size: 18px; }
+    .buttons { margin-top: 20px; }
+    button { margin: 5px; font-size: 16px; padding: 5px 10px; }
+  </style>
+</head>
+<body>
+  <h1>モンティ・ホール問題シミュレーター</h1>
+  <p>ドアを1つ選んでください。どれか1つに車（当たり）があります！</p>
+
+  <div class="door-container">
+    <div class="door" onclick="chooseDoor(0)">#1</div>
+    <div class="door" onclick="chooseDoor(1)">#2</div>
+    <div class="door" onclick="chooseDoor(2)">#3</div>
+  </div>
+
+  <div class="buttons" id="switchButtons" style="display:none">
+    <p>ドアを変更しますか？</p>
+    <button onclick="makeFinalChoice(true)">はい（変更する）</button>
+    <button onclick="makeFinalChoice(false)">いいえ（そのまま）</button>
+  </div>
+
+  <div class="buttons" id="retryButton" style="display:none">
+    <button onclick="restart()">もう一度挑戦</button>
+  </div>
+
+  <div class="result" id="result"></div>
+  <div class="result" id="stats"></div>
+
+  <script>
+    let prizeDoor = Math.floor(Math.random() * 3);
+    let playerChoice = null;
+    let revealedDoor = null;
+    let winCount = 0, trialCount = 0;
+    let switchWin = 0, switchTrial = 0;
+    let stayWin = 0, stayTrial = 0;
+
+    function chooseDoor(index) {
+      if (playerChoice !== null) return;
+      playerChoice = index;
+
+      // Reveal a goat door that is not player's choice or prize
+      do {
+        revealedDoor = Math.floor(Math.random() * 3);
+      } while (revealedDoor === playerChoice || revealedDoor === prizeDoor);
+
+      document.querySelectorAll('.door')[revealedDoor].classList.add('open');
+      document.querySelectorAll('.door')[revealedDoor].innerText = "ヤギ";
+
+      document.getElementById('switchButtons').style.display = 'block';
+    }
+
+    function makeFinalChoice(switchDoor) {
+      const originalChoice = playerChoice;
+
+      if (switchDoor) {
+        for (let i = 0; i < 3; i++) {
+          if (i !== playerChoice && i !== revealedDoor) {
+            playerChoice = i;
+            break;
+          }
+        }
+      }
+
+      document.querySelectorAll('.door')[prizeDoor].classList.add('open');
+      document.querySelectorAll('.door')[prizeDoor].innerText = "🚗";
+
+      const win = playerChoice === prizeDoor;
+      trialCount++;
+      if (win) winCount++;
+
+      // 場合分け記録
+      if (switchDoor) {
+        switchTrial++;
+        if (win) switchWin++;
+      } else {
+        stayTrial++;
+        if (win) stayWin++;
+      }
+
+      document.getElementById('result').innerText = win ? "🎉 あたり！" : "😢 はずれ...";
+      document.getElementById('stats').innerText =
+        `勝率：${winCount} / ${trialCount} = ${(winCount / trialCount * 100).toFixed(1)}%\n` +
+        `▶ 変更：${switchWin} / ${switchTrial} = ${(switchTrial ? (switchWin / switchTrial * 100).toFixed(1) : 0)}%\n` +
+        `▶ 維持：${stayWin} / ${stayTrial} = ${(stayTrial ? (stayWin / stayTrial * 100).toFixed(1) : 0)}%`;
+
+      document.getElementById('switchButtons').style.display = 'none';
+      document.getElementById('retryButton').style.display = 'block';
+    }
+
+    function restart() {
+      // ドアのリセット
+      document.querySelectorAll('.door').forEach((el, i) => {
+        el.className = 'door';
+        el.innerText = `#${i + 1}`;
+      });
+
+      // 状態の初期化
+      prizeDoor = Math.floor(Math.random() * 3);
+      playerChoice = null;
+      revealedDoor = null;
+
+      document.getElementById('result').innerText = '';
+      document.getElementById('switchButtons').style.display = 'none';
+      document.getElementById('retryButton').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
