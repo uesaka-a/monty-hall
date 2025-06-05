@@ -28,7 +28,7 @@
       max-height: 300px;
       background-color: brown;
       color: white;
-      font-size: 3em; /* サイズを少し大きく */
+      font-size: 3em;
       margin: 10px;
       display: flex;
       align-items: center;
@@ -56,32 +56,35 @@
       font-size: 3em;
     }
     button {
-     margin: 10px;
-     font-size: 1.8em;
-     padding: 0.5em 1em;
-     text-align: center;
-     display: inline-block;
-     line-height: 1.2;
-     white-space: nowrap;
+      margin: 10px;
+      font-size: 1.8em;
+      padding: 0.5em 1em;
+      text-align: center;
+      display: inline-block;
+      line-height: 1.2;
+      white-space: nowrap;
     }
-    /* 「もう一度挑戦」ボタン専用のスタイルを追加 */
     #retryButton button {
-     font-size: 2.4em;
-     font-weight: bold;
+      font-size: 2.4em;
+      font-weight: bold;
     }
     button .line1 {
-     display: block;
-     font-weight: bold;
-     font-size: 2em;
+      display: block;
+      font-weight: bold;
+      font-size: 2em;
     }
     button .line2 {
-     display: block;
-     font-size: 2em;
-     color: #555;
+      display: block;
+      font-size: 2em;
+      color: #555;
     }
     .description {
       font-size: 2em;
       margin: 1em 0;
+    }
+    .red {
+      color: red;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -98,14 +101,15 @@
   <div class="buttons" id="switchButtons" style="display:none">
     <p>ドアを変更しますか？</p>
     <button onclick="makeFinalChoice(true)">
-     <span class="line1">はい🙆</span><br>
-     <span class="line2">変更する</span>
+      <span class="line1">はい🙆</span><br>
+      <span class="line2">変更する</span>
     </button>
     <button onclick="makeFinalChoice(false)">
-     <span class="line1">いいえ🙅</span><br>
-     <span class="line2">そのまま</span>
+      <span class="line1">いいえ🙅</span><br>
+      <span class="line2">そのまま</span>
     </button>
   </div>
+
   <div class="buttons" id="retryButton" style="display:none">
     <button onclick="restart()">もう一度挑戦</button>
   </div>
@@ -163,10 +167,19 @@
       }
 
       document.getElementById('result').innerText = win ? "🎉 あたり！" : "😢 はずれ...";
-      document.getElementById('stats').innerText =
-        `勝率：${winCount} / ${trialCount} = ${(winCount / trialCount * 100).toFixed(1)}%\n` +
-        `▶ 変更：${switchWin} / ${switchTrial} = ${(switchTrial ? (switchWin / switchTrial * 100).toFixed(1) : 0)}%\n` +
-        `▶ 維持：${stayWin} / ${stayTrial} = ${(stayTrial ? (stayWin / stayTrial * 100).toFixed(1) : 0)}%`;
+
+      let switchText = `▶ 変更：${switchWin} / ${switchTrial} = ${(switchTrial ? (switchWin / switchTrial * 100).toFixed(1) : 0)}%`;
+      let stayText = `▶ 維持：${stayWin} / ${stayTrial} = ${(stayTrial ? (stayWin / stayTrial * 100).toFixed(1) : 0)}%`;
+
+      if (switchDoor) {
+        switchText = `<span class="red">${switchText}</span>`;
+      } else {
+        stayText = `<span class="red">${stayText}</span>`;
+      }
+
+      document.getElementById('stats').innerHTML =
+        `勝率：${winCount} / ${trialCount} = ${(winCount / trialCount * 100).toFixed(1)}%<br>` +
+        `${switchText}<br>${stayText}`;
 
       document.getElementById('switchButtons').style.display = 'none';
       document.getElementById('retryButton').style.display = 'block';
@@ -183,6 +196,7 @@
       revealedDoor = null;
 
       document.getElementById('result').innerText = '';
+      document.getElementById('stats').innerText = ''; // ← 赤文字もリセット
       document.getElementById('switchButtons').style.display = 'none';
       document.getElementById('retryButton').style.display = 'none';
     }
