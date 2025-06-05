@@ -56,9 +56,28 @@
       font-size: 1.8em;
     }
     button {
-      margin: 10px;
-      font-size: 1.8em;
-      padding: 0.5em 1em;
+     margin: 10px;
+     font-size: 1.8em;
+     padding: 0.5em 1em;
+     text-align: center;
+     display: inline-block;
+     line-height: 1.2;
+     white-space: nowrap;
+    }
+    /* 「もう一度挑戦」ボタン専用のスタイルを追加 */
+    #retryButton button {
+     font-size: 2.4em;
+     font-weight: bold;
+    }
+    button .line1 {
+     display: block;
+     font-weight: bold;
+     font-size: 1.2em;
+    }
+    button .line2 {
+     display: block;
+     font-size: 0.8em;
+     color: #555;
     }
     .description {
       font-size: 1.8em;
@@ -78,10 +97,15 @@
 
   <div class="buttons" id="switchButtons" style="display:none">
     <p>ドアを変更しますか？</p>
-    <button onclick="makeFinalChoice(true)">はい（変更する）</button>
-    <button onclick="makeFinalChoice(false)">いいえ（そのまま）</button>
+    <button onclick="makeFinalChoice(true)">
+     <span class="line1">はい</span><br>
+     <span class="line2">変更する</span>
+    </button>
+    <button onclick="makeFinalChoice(false)">
+     <span class="line1">いいえ</span><br>
+     <span class="line2">そのまま</span>
+    </button>
   </div>
-
   <div class="buttons" id="retryButton" style="display:none">
     <button onclick="restart()">もう一度挑戦</button>
   </div>
