@@ -101,17 +101,17 @@
   <div class="buttons" id="switchButtons" style="display:none">
     <p>ドアを変更しますか？</p>
     <button onclick="makeFinalChoice(true)">
-      <span class="line1">はい🙆</span><br>
+      <span class="line1">🙆はい</span><br>
       <span class="line2">変更する</span>
     </button>
     <button onclick="makeFinalChoice(false)">
-      <span class="line1">いいえ🙅</span><br>
+      <span class="line1">🙅いいえ</span><br>
       <span class="line2">そのまま</span>
     </button>
   </div>
 
   <div class="buttons" id="retryButton" style="display:none">
-    <button onclick="restart()">もう一度挑戦</button>
+    <button onclick="restart()">🔁もう一度挑戦</button>
   </div>
 
   <div class="result" id="result"></div>
@@ -134,7 +134,7 @@
       } while (revealedDoor === playerChoice || revealedDoor === prizeDoor);
 
       document.querySelectorAll('.door')[revealedDoor].classList.add('open');
-      document.querySelectorAll('.door')[revealedDoor].innerText = "ヤギ🐐";
+      document.querySelectorAll('.door')[revealedDoor].innerText = "🐐ヤギ";
 
       document.getElementById('switchButtons').style.display = 'block';
     }
